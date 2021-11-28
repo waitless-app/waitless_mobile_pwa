@@ -25,13 +25,16 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
+    "autoprefixer": "^10.4.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
     "lint-staged": "^9.5.0",
+    "postcss": "^8.4.4",
     "sass": "^1.26.5",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "tailwindcss": "^2.2.19"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -41,5 +44,9 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:waitless-app/waitless_mobile_pwa.git",
+  "author": "swrzalek <stian.uek@gmail.com>",
+  "license": "MIT"
 }
