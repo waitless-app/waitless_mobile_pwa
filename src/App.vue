@@ -4,13 +4,20 @@
       This app is only available on mobile devices <span role="img" aria-label="hand">👋🏼</span>
     </div>
   </div>
-  <router-view v-else></router-view>
+  <template v-else>
+    <router-view></router-view>
+    <NavBottom></NavBottom>
+  </template>
 </template>
 <script>
 import { onMounted, ref } from 'vue';
+import NavBottom from './components/core/NavBottom.vue';
 
 export default {
   name: 'App',
+  components: {
+    NavBottom,
+  },
   setup() {
     const isMobile = ref(false);
 
