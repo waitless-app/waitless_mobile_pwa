@@ -4,10 +4,10 @@
       This app is only available on mobile devices <span role="img" aria-label="hand">👋🏼</span>
     </div>
   </div>
-  <template v-else>
+  <div class="bg-gray-900" v-else>
     <router-view></router-view>
     <NavBottom></NavBottom>
-  </template>
+  </div>
 </template>
 <script>
 import { onMounted, ref } from 'vue';
