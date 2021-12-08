@@ -1,5 +1,4 @@
 <template>
-  <div class="w-full h-screen">
     <!-- <section id="bottom-navigation" class="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> // if shown only tablet/mobile-->
     <section
       id="bottom-navigation"
@@ -15,11 +14,10 @@
           v-for="item in menu" :key="item.view"
           @click="pushRoute(item.routeName)"
         >
-          <span :class="['tab tab-home block text-xs', routeName === item.routeName ? 'text-black' : 'text-white']">{{ item.view }}</span>
+          <span :class="['tab tab-home block text-xs', routeName === item.routeName ? 'text-green-400' : 'text-green-500']">{{ item.view }}</span>
         </a>
       </div>
     </section>
-  </div>
 </template>
 
 <script>

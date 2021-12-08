@@ -4,19 +4,25 @@
       This app is only available on mobile devices <span role="img" aria-label="hand">👋🏼</span>
     </div>
   </div>
-  <div class="bg-gray-900" v-else>
-    <router-view></router-view>
-    <NavBottom></NavBottom>
-  </div>
+  <AppTemplate v-else>
+    <SafeArea>
+      <router-view />
+    </SafeArea>
+    <AppNavBottom />
+  </AppTemplate>
 </template>
 <script>
 import { onMounted, ref } from 'vue';
-import NavBottom from './components/core/NavBottom.vue';
+import AppNavBottom from './components/molecules/AppNavBottom.vue';
+import SafeArea from './components/templates/SafeArea.vue';
+import AppTemplate from './components/templates/AppTemplate.vue';
 
 export default {
   name: 'App',
   components: {
-    NavBottom,
+    AppNavBottom,
+    SafeArea,
+    AppTemplate,
   },
   setup() {
     const isMobile = ref(false);
