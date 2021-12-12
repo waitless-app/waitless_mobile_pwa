@@ -8,11 +8,12 @@
     <SafeArea>
       <router-view />
     </SafeArea>
-    <AppNavBottom />
+    <AppNavBottom v-if="meta?.showNav"/>
   </AppTemplate>
 </template>
 <script>
 import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import AppNavBottom from './components/molecules/AppNavBottom.vue';
 import SafeArea from './components/templates/SafeArea.vue';
 import AppTemplate from './components/templates/AppTemplate.vue';
@@ -27,6 +28,8 @@ export default {
   setup() {
     const isMobile = ref(false);
 
+    const { meta } = useRoute();
+
     const handleResize = (e) => {
       isMobile.value = e.target.innerWidth >= 480;
     };
@@ -35,7 +38,7 @@ export default {
       window.addEventListener('resize', handleResize);
     });
 
-    return { isMobile };
+    return { isMobile, meta };
   },
 };
 </script>
