@@ -1,10 +1,19 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col justify-center">
     <div class="-mt-32">
       <img src="../../assets/logo_round.png" alt="" />
     </div>
     <div class="flex justify-center">
-      <form class="w-full max-w-xs">
+      <div class="w-full max-w-xs">
+        <div class="mb-4">
+          <div class="text-white text-4xl font-bold self-center">
+        Login
+      </div>
+      <div class="text-white text-sm">
+        Please sign in to continue.
+      </div>
+        </div>
+      <form>
         <div class="md:flex md:items-center mb-6">
           <div class="md:w-1/3">
             <label
@@ -42,17 +51,15 @@
           </div>
         </div>
         <div class="md:flex md:items-end">
-          <div class="md:w-1/3"></div>
-          <div class="md:w-2/3">
             <button
               class="shadow bg-green-600 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               type="button"
             >
               Sign Up
             </button>
-          </div>
         </div>
       </form>
+        </div>
     </div>
   </div>
 </template>
