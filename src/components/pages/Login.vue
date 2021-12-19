@@ -30,17 +30,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import AppInput from '../atoms/AppInput.vue';
-
-export default {
-  name: 'login-view',
-  components: { AppInput },
-};
 </script>
 
 <style scoped>
-.logo {
-  top: -200px;
-}
 </style>

@@ -31,16 +31,9 @@
   </div>
 </template>
 
-<script>
-
+<script setup>
 import AppInput from '../atoms/AppInput.vue';
 
-export default {
-  name: 'register-view',
-  components: {
-    AppInput,
-  },
-};
 </script>
 
 <style scoped>
