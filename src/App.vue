@@ -11,34 +11,23 @@
     <AppNavBottom v-if="meta?.showNav"/>
   </AppTemplate>
 </template>
-<script>
-import { onMounted, ref } from 'vue';
+<script setup>
+import { onMounted, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import AppNavBottom from './components/molecules/AppNavBottom.vue';
 import SafeArea from './components/templates/SafeArea.vue';
 import AppTemplate from './components/templates/AppTemplate.vue';
 
-export default {
-  name: 'App',
-  components: {
-    AppNavBottom,
-    SafeArea,
-    AppTemplate,
-  },
-  setup() {
-    const isMobile = ref(false);
+const isMobile = ref(false);
 
-    const { meta } = useRoute();
+const router = useRoute();
+const { meta } = toRefs(router);
 
-    const handleResize = (e) => {
-      isMobile.value = e.target.innerWidth >= 480;
-    };
-
-    onMounted(() => {
-      window.addEventListener('resize', handleResize);
-    });
-
-    return { isMobile, meta };
-  },
+const handleResize = (e) => {
+  isMobile.value = e.target.innerWidth >= 480;
 };
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
 </script>

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/pages/Home.vue';
 import Register from '../components/pages/Register.vue';
 import Login from '../components/pages/Login.vue';
+import { getItem } from '../utils/localstorage';
 
 const routes = [
   {
@@ -30,7 +31,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && false) next({ name: 'Login' });
+  if (!['Login', 'Register'].includes(to.name) && !getItem('access_token')) next({ name: 'Login' });
   else next();
 });
 
