@@ -3,12 +3,19 @@ import Home from '../components/pages/Home.vue';
 import Register from '../components/pages/Register.vue';
 import Login from '../components/pages/Login.vue';
 import { getItem } from '../utils/localstorage';
+import Premises from '../components/pages/Premises.vue';
 
 const routes = [
   {
     path: '/',
     component: Home,
     name: 'Home',
+    meta: { showNav: true },
+  },
+  {
+    path: '/premises',
+    component: Premises,
+    name: 'Premises',
     meta: { showNav: true },
   },
   {

@@ -41,7 +41,7 @@ export default {
       {
         view: 'Home',
         icon: 'home',
-        routeName: 'Home',
+        routeName: 'Premises',
       },
       {
         view: 'Orders',
