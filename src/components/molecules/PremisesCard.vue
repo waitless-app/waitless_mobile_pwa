@@ -1,7 +1,7 @@
 <template>
 <div class="bg-green-400 w-100 rounded-md flex-col shadow-md">
     <div class="max-w-sm">
-        <div class="w-100 h-36 content-div" :style="{ backgroundImage: bg}" />
+        <div class="w-100 h-36 content-image" :style="{ backgroundImage: bg}" />
         <div class="p-3 bg-green-400 rounded-b-md">
             <a href="#">
                 <h5 class="text-gray-900 font-bold text-md tracking-tight mb-2">{{  props.name }}</h5>
@@ -28,11 +28,3 @@ const props = defineProps({
 
 const bg = `url(${props.image})`;
 </script>
-
-<style scoped>
-.content-div {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position:center;
-}
-</style>

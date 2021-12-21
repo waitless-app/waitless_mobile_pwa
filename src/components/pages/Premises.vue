@@ -11,7 +11,7 @@
     </div>
     <div class="grid grid-cols-2 gap-4">
       <template v-for="item in premises" :key="item.name">
-        <PremisesCard :name="item.name" :image="item.image"/>
+        <PremisesCard :name="item.name" :image="item.image" @click="openMenu(item.id)"/>
       </template>
     </div>
   </div>
@@ -19,10 +19,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import PremisesCard from '../molecules/PremisesCard.vue';
 import { PremisesService } from '../../services/api.service';
 
 const premises = ref([]);
+
+const router = useRouter();
+
+const openMenu = (premisesId) => {
+  router.push({ name: 'Menu', params: { premisesId } });
+};
 
 onMounted(() => {
   PremisesService.query().then(({ data }) => {

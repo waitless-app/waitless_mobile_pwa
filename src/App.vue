@@ -6,7 +6,16 @@
   </div>
   <AppTemplate v-else>
     <SafeArea>
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <suspense>
+            <template #default>
+              <component :is="Component"></component>
+            </template>
+            <template #fallback>
+              loadin...
+            </template>
+          </suspense>
+        </router-view>
     </SafeArea>
     <AppNavBottom v-if="meta?.showNav"/>
   </AppTemplate>

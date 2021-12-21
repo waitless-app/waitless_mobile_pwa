@@ -5,12 +5,13 @@ module.exports = {
     extend: {
       colors: {
         transparent: 'transparent',
-        black: '#000',
+        black: '#19191A',
         white: '#F2F2F2',
         gray: {
           100: '#BFBFBF',
           200: '#797979',
-          // ...
+          700: '#363636',
+          800: '#272727',
           900: '#212121',
         },
         pink: {

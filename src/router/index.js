@@ -4,6 +4,7 @@ import Register from '../components/pages/Register.vue';
 import Login from '../components/pages/Login.vue';
 import { getItem } from '../utils/localstorage';
 import Premises from '../components/pages/Premises.vue';
+import Menu from '../components/pages/Menu.vue';
 
 const routes = [
   {
@@ -16,6 +17,12 @@ const routes = [
     path: '/premises',
     component: Premises,
     name: 'Premises',
+    meta: { showNav: true },
+  },
+  {
+    path: '/menu/:premisesId',
+    component: Menu,
+    name: 'Menu',
     meta: { showNav: true },
   },
   {
