@@ -46,7 +46,7 @@ export default {
       {
         view: 'Orders',
         icon: 'clipboardList',
-        routeName: 'Home',
+        routeName: 'Order',
 
       },
       {

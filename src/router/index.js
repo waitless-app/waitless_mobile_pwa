@@ -5,6 +5,8 @@ import Login from '../components/pages/Login.vue';
 import { getItem } from '../utils/localstorage';
 import Premises from '../components/pages/Premises.vue';
 import Menu from '../components/pages/Menu.vue';
+import Order from '../components/pages/Order.vue';
+import OrderList from '../components/pages/OrderList.vue';
 
 const routes = [
   {
@@ -18,6 +20,15 @@ const routes = [
     component: Premises,
     name: 'Premises',
     meta: { showNav: true },
+  },
+  {
+    path: '/order',
+    component: OrderList,
+    name: 'Order',
+    meta: { showNav: true },
+    children: [{
+      path: '', component: Order,
+    }],
   },
   {
     path: '/menu/:premisesId',
