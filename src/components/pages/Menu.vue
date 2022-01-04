@@ -28,7 +28,7 @@
                 <span href="#" class="inline-block rounded-full bg-white border-4 border-purple-400 p-1 text-xs"></span>
               </div>
             </div>
-  <CartModal v-if="isVisible"></CartModal>
+  <CartModal v-if="isVisible" @order:create="handleOrderCreate"></CartModal>
 </template>
 <script setup>
 import { useRoute } from 'vue-router';
@@ -38,13 +38,42 @@ import AppBadge from '@/components/atoms/AppBadge.vue';
 import AppIcon from '@/components/atoms/AppIcon.vue';
 import CartModal from '@/components/organisms/CartModal.vue';
 import { useCart } from '../../composable/useCart';
+import { WS_URL } from '../../utils/config';
 
 const route = useRoute();
-const { isVisible, addToCart, toggleCartVisibility } = useCart();
+const {
+  isVisible, addToCart, toggleCartVisibility,
+} = useCart();
 
 const id = route.params.premisesId;
 
 const menu = ref(await MenuService.get(id));
+
+const socket = new WebSocket(WS_URL);
+
+const handleOrderCreate = () => {
+  // const payload = {
+  //   type: 'create.order',
+  //   data: {
+  //     status: 'REQUESTED',
+  //     customer: 35,
+  //     premises: id,
+  //     products: cart.value.map((product) => product.id),
+  //   },
+  // };
+  const payload = {
+    type: 'create.order',
+    data: {
+      status: 'REQUESTED',
+      customer: 35,
+      premises: 1,
+      order_products: [
+        1,
+      ],
+    },
+  };
+  socket.send(JSON.stringify(payload));
+};
 
 const handleProductClick = (product) => {
   addToCart(product);

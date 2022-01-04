@@ -58,9 +58,3 @@ export const UserService = {
     return ApiService.get('user/me');
   },
 };
-
-export const OrderService = {
-  query() {
-    return ApiService.query('order/');
-  },
-};

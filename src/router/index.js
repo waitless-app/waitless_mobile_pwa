@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/pages/Home.vue';
 import Register from '../components/pages/Register.vue';
 import Login from '../components/pages/Login.vue';
 import { getItem } from '../utils/localstorage';
@@ -11,7 +10,7 @@ import OrderList from '../components/pages/OrderList.vue';
 const routes = [
   {
     path: '/',
-    component: Home,
+    component: Premises,
     name: 'Home',
     meta: { showNav: true },
   },

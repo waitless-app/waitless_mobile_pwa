@@ -1,10 +1,7 @@
 <template>
-<div>{{  orders }}</div>
+<div>{{  x }}</div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { OrderService } from '../../services/api.service';
-
-const orders = ref(await OrderService.query());
+const x = '';
 </script>
