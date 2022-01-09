@@ -23,7 +23,7 @@
 <script setup>
 import { onMounted, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
-import AppNavBottom from './components/molecules/AppNavBottom.vue';
+import AppNavBottom from './components/organisms/AppNavigationBottom.vue';
 import SafeArea from './components/templates/SafeArea.vue';
 import AppTemplate from './components/templates/AppTemplate.vue';
 

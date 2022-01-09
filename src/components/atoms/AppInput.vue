@@ -1,9 +1,10 @@
 <template>
       <div class="mb-4 relative">
-        <input v-model="localValue" type="text" v-bind="$attrs"  class="input border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" :id="id">
+        <input :disabled="disabled" v-model="localValue" type="text" v-bind="$attrs"  class="input border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" :id="id">
         <label :for="id" class="label absolute mb-0 -mt-2 pt-4 pl-3 leading-tighter text-gray-400 text-base mt-2 cursor-text">{{
             label
-          }}</label>
+          }}
+      </label>
     </div>
 </template>
 
@@ -25,6 +26,10 @@ const props = defineProps({
   id: {
     type: String,
     default: '',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 const emit = defineEmits(['update:modelValue']);

@@ -20,7 +20,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import PremisesCard from '../molecules/PremisesCard.vue';
+import PremisesCard from '../organisms/PremisesCard.vue';
 import { PremisesService } from '../../services/api.service';
 
 const premises = ref([]);
