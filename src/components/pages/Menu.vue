@@ -40,21 +40,30 @@
 </template>
 <script setup>
 import { useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
+import {
+  computed, ref, watch,
+} from 'vue';
 import { MenuService } from '../../services/api.service';
 import AppBadge from '@/components/atoms/AppBadge.vue';
 import ProductCard from '@/components/organisms/ProductCard.vue';
 import AppIcon from '@/components/atoms/AppIcon.vue';
 import CartModal from '@/components/pages/Cart.vue';
-import { useCart } from '../../composable/useCart';
 import { WS_URL } from '../../utils/config';
+import { useWebsockets } from '../../composable/useWebsockets';
+import { useCart } from '../../composable/useCart';
 
 const route = useRoute();
 const {
   isVisible, addToCart, toggleCartVisibility, cart,
 } = useCart();
 
+const { sendMessage, lastMessage } = useWebsockets(WS_URL);
 const id = route.params.premisesId;
+
+watch(lastMessage, (currentValue, oldValue) => {
+  console.log(currentValue);
+  console.log(oldValue);
+});
 
 const menu = ref(await MenuService.get(id));
 
@@ -63,30 +72,18 @@ const premisesAddress = computed(() => {
   return `${premises.country}, ${premises.city}, ${premises.address}`;
 });
 
-const socket = new WebSocket(WS_URL);
-
 const handleOrderCreate = () => {
-  // const payload = {
-  //   type: 'create.order',
-  //   data: {
-  //     status: 'REQUESTED',
-  //     customer: 35,
-  //     premises: id,
-  //     products: cart.value.map((product) => product.id),
-  //   },
-  // };
   const payload = {
     type: 'create.order',
     data: {
       status: 'REQUESTED',
       customer: 35,
-      premises: 1,
-      order_products: [
-        1,
-      ],
+      premises: id,
+      order_products: cart.value.map((product) => product.id),
     },
   };
-  socket.send(JSON.stringify(payload));
+
+  sendMessage(payload);
 };
 
 const handleProductClick = (product) => {

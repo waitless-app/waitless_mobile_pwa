@@ -15,8 +15,8 @@ export function useCart() {
   };
 
   const totalPrice = computed(() => {
-    const price = 0;
-    cart.value.forEach((product) => { totalPrice.value += product.price; });
+    let price = 0.00;
+    cart.value.forEach((product) => { price += Number(product.price); });
     return price;
   });
 
