@@ -49,15 +49,16 @@ import ProductCard from '@/components/organisms/ProductCard.vue';
 import AppIcon from '@/components/atoms/AppIcon.vue';
 import CartModal from '@/components/pages/Cart.vue';
 import { WS_URL } from '../../utils/config';
-import { useWebsockets } from '../../composable/useWebsockets';
 import { useCart } from '../../composable/useCart';
+import { useWebsockets } from '../../composable/useWebsockets';
 
 const route = useRoute();
 const {
   isVisible, addToCart, toggleCartVisibility, cart,
 } = useCart();
 
-const { sendMessage, lastMessage } = useWebsockets(WS_URL);
+const { lastMessage, sendMessage } = useWebsockets(WS_URL);
+
 const id = route.params.premisesId;
 
 watch(lastMessage, (currentValue, oldValue) => {
@@ -82,7 +83,7 @@ const handleOrderCreate = () => {
       order_products: cart.value.map((product) => product.id),
     },
   };
-
+  console.log(payload);
   sendMessage(payload);
 };
 
