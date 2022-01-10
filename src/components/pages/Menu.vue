@@ -37,6 +37,17 @@
             </div>
   </div>
   <CartModal v-if="isVisible" @order:create="handleOrderCreate"></CartModal>
+  <AppModal @close="orderCallbackModal = false" v-if="orderCallbackModal">
+    <div class="flex flex-col my-auto self-center items-center">
+      <div class="text-2xl text-gray-900 text-center font-medium mb-5">Order is requested,<br/>
+        we are waiting for confirmation.</div>
+  <div class="relative">
+    <div class="w-32 h-32 bg-white rounded-full shadow-2xl"></div>
+    <div class="absolute top-3 right-3 -mr-1 -mt-1 w-4 h-4 rounded-full bg-pink-500 animate-ping"></div>
+    <div class="absolute top-3 right-3 -mr-1 -mt-1 w-4 h-4 rounded-full bg-pink-500"></div>
+  </div>
+    </div>
+  </AppModal>
 </template>
 <script setup>
 import { useRoute } from 'vue-router';
@@ -48,6 +59,7 @@ import AppBadge from '@/components/atoms/AppBadge.vue';
 import ProductCard from '@/components/organisms/ProductCard.vue';
 import AppIcon from '@/components/atoms/AppIcon.vue';
 import CartModal from '@/components/pages/Cart.vue';
+import AppModal from '@/components/organisms/AppModal.vue';
 import { WS_URL } from '../../utils/config';
 import { useCart } from '../../composable/useCart';
 import { useWebsockets } from '../../composable/useWebsockets';
@@ -61,10 +73,9 @@ const { lastMessage, sendMessage } = useWebsockets(WS_URL);
 
 const id = route.params.premisesId;
 
-watch(lastMessage, (currentValue, oldValue) => {
-  console.log(currentValue);
-  console.log(oldValue);
-});
+const orderCallbackModal = ref(false);
+
+const order = ref({});
 
 const menu = ref(await MenuService.get(id));
 
@@ -83,9 +94,23 @@ const handleOrderCreate = () => {
       order_products: cart.value.map((product) => product.id),
     },
   };
+  order.value = payload.data;
+
   console.log(payload);
   sendMessage(payload);
 };
+
+const handleOrderCreated = () => {
+  // Reset cart
+  isVisible.value = false;
+  orderCallbackModal.value = true;
+};
+
+watch(lastMessage, (currentValue) => {
+  if (currentValue.type === 'create.order') {
+    handleOrderCreated(currentValue.data);
+  }
+});
 
 const handleProductClick = (product) => {
   addToCart(product);

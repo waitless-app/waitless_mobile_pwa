@@ -48,7 +48,7 @@ export const useWebsockets = (url, options = {}) => {
   });
 
   const sendMessage = (message) => {
-    ws.value.send(JSON.stringify(message));
+    ws.send(JSON.stringify(message));
   };
 
   return { sendMessage, lastMessage };
