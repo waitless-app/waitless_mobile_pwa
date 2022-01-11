@@ -28,8 +28,8 @@ export function useCart() {
 
   const totalPrice = computed(() => {
     let price = 0.0;
-    cart.value.forEach(({ product }) => {
-      price += Number(product.price);
+    cart.value.forEach(({ product, quantity }) => {
+      price += Number(product.price * quantity);
     });
     return price;
   });
