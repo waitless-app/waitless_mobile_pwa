@@ -72,33 +72,31 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { computed, ref, watch } from "vue";
-import { MenuService } from "../../services/api.service";
-import AppBadge from "@/components/atoms/AppBadge.vue";
-import ProductCard from "@/components/organisms/ProductCard.vue";
-import AppIcon from "@/components/atoms/AppIcon.vue";
-import CartModal from "@/components/pages/Cart.vue";
-import AppModal from "@/components/organisms/AppModal.vue";
-import { WS_URL } from "../../utils/config";
 import { useCart } from "../../composable/useCart";
 import { useWebsockets } from "../../composable/useWebsockets";
+import { MenuService } from "../../services/api.service";
+import { WS_URL } from "../../utils/config";
+import AppBadge from "@/components/atoms/AppBadge.vue";
+import AppIcon from "@/components/atoms/AppIcon.vue";
+import ProductCard from "@/components/organisms/ProductCard.vue";
+import AppModal from "@/components/organisms/AppModal.vue";
+import CartModal from "@/components/pages/Cart.vue";
 
 const route = useRoute();
+const id = route.params.premisesId;
+
 const { isVisible, addToCart, toggleCartVisibility, cart } = useCart();
 
 const { lastMessage, sendMessage } = useWebsockets(WS_URL);
 
-const id = route.params.premisesId;
+watch(lastMessage, (currentValue) => {
+  if (currentValue.type === "create.order") {
+    handleOrderCreated(currentValue.data);
+  }
+});
 
 const orderCallbackModal = ref(false);
-
 const order = ref({});
-
-const menu = ref(await MenuService.get(id));
-
-const premisesAddress = computed(() => {
-  const { premises } = menu.value.data[0];
-  return `${premises.country}, ${premises.city}, ${premises.address}`;
-});
 
 const handleOrderCreate = () => {
   const payload = {
@@ -122,15 +120,16 @@ const handleOrderCreated = () => {
   orderCallbackModal.value = true;
 };
 
-watch(lastMessage, (currentValue) => {
-  if (currentValue.type === "create.order") {
-    handleOrderCreated(currentValue.data);
-  }
-});
-
 const handleProductClick = (product) => {
   addToCart(product);
 };
+
+const menu = ref(await MenuService.get(id));
+
+const premisesAddress = computed(() => {
+  const { premises } = menu.value.data[0];
+  return `${premises.country}, ${premises.city}, ${premises.address}`;
+});
 </script>
 
 <style scoped></style>
