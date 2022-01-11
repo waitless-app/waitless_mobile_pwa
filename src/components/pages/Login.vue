@@ -13,13 +13,7 @@
           <AppInput label="Email" v-model="form.email" id="email" />
           <AppInput label="Password" type="password" v-model="form.password" id="password" />
           <div class="md:flex md:items-end">
-            <button
-              class="shadow bg-green-600 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-              type="button"
-              @click="handleLogin"
-            >
-              Sign In
-            </button>
+            <AppButton @click="handleLogin"> Sign In </AppButton>
           </div>
         </form>
       </div>
@@ -30,24 +24,25 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import AppInput from "../atoms/AppInput.vue";
-import AuthService from "../../services/auth.service";
-import { setItem } from "../../utils/localstorage";
+import { setItem } from "@/utils/localstorage";
+import AppInput from "@/components/atoms/AppInput.vue";
+import AppButton from "@/components/atoms/AppButton.vue";
+import AuthService from "@/services/auth.service";
 
-const router = useRouter();
+const form = ref({ email: "", password: "" });
 
 const saveToken = (access = null, refresh = null) => {
-  // setItem('access_token', access).then(() => Actions.welcome());
   setItem("access_token", access);
   setItem("refresh_token", refresh);
 };
 
-const form = ref({ email: "", password: "" });
+const router = useRouter();
+
 const handleLogin = () => {
   AuthService.login(form.value)
     .then(({ data }) => {
       saveToken(data.access, data.refresh);
-      router.push("home");
+      router.push("premises");
     })
     .catch(() => console.log("Error"));
 };

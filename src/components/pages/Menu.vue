@@ -3,13 +3,13 @@
     <div class="bg-gray-800 rounded-lg p-4">
       <div
         class="bg-gray-600 h-40 rounded-lg bg-cover bg-center"
-        :style="{ 'background-image': `url(${menu.data[0].premises.image})` }"
+        :style="{ 'background-image': `url(${menu.premises.image})` }"
       ></div>
       <div class="text-white mt-4 font-bold">
-        {{ menu.data[0].premises.name }}
+        {{ menu.premises.name }}
       </div>
       <div class="text-white font-medium my-1">
-        {{ menu.data[0].premises.description }}
+        {{ menu.premises.description }}
       </div>
       <div class="text-gray-400">
         <AppIcon icon="locationMarker" class="pb-1" /> {{ premisesAddress }}
@@ -21,7 +21,7 @@
       </div>
       <div>
         <ul class="flex flex-col mt-4">
-          <template v-for="product in menu.data[0].products" :key="product.name">
+          <template v-for="product in menu.products" :key="product.name">
             <ProductCard
               :name="product.name"
               :description="product.description"
@@ -105,7 +105,7 @@ const handleOrderCreate = () => {
   //     status: "REQUESTED",
   //     customer: 35,
   //     premises: id,
-  //     order_products: cart.value.map((product) => product.id),
+  //     order_products: cart.value.map(({ product }}) => product.id),
   //   },
   // };
   // order.value = payload.data;
@@ -123,11 +123,11 @@ const handleOrderCreated = () => {
 const handleProductClick = (product) => {
   addToCart(product);
 };
-
-const menu = ref(await MenuService.get(id));
+const { data = [] } = await MenuService.get(id);
+const menu = ref(data[0]);
 
 const premisesAddress = computed(() => {
-  const { premises } = menu.value.data[0];
+  const { premises } = menu.value;
   return `${premises.country}, ${premises.city}, ${premises.address}`;
 });
 </script>

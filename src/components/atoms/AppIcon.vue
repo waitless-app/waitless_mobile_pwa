@@ -28,6 +28,7 @@ const props = defineProps({
     default: "home",
   },
 });
+
 const availableIcons = {
   home: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
   clipboardList:
@@ -37,5 +38,6 @@ const availableIcons = {
   locationMarker:
     "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
   close: "M6 18L18 6M6 6l12 12",
+  arrowRight: "M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z",
 };
 </script>
