@@ -1,12 +1,12 @@
-import ApiService from './api.service';
+import ApiService from "./api.service";
 
 export const OrderStatuses = {
-  COMPLETED: 'COMPLETED',
-  REQUESTED: 'REQUESTED',
+  COMPLETED: "COMPLETED",
+  REQUESTED: "REQUESTED",
 };
 
 export const OrderService = {
   query() {
-    return ApiService.query('order/');
+    return ApiService.query("order/");
   },
 };

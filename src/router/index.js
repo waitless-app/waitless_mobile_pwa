@@ -1,50 +1,53 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Register from '../components/pages/Register.vue';
-import Login from '../components/pages/Login.vue';
-import { getItem } from '../utils/localstorage';
-import Premises from '../components/pages/Premises.vue';
-import Menu from '../components/pages/Menu.vue';
-import Order from '../components/pages/Order.vue';
-import OrderList from '../components/pages/OrderList.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import Register from "../components/pages/Register.vue";
+import Login from "../components/pages/Login.vue";
+import { getItem } from "../utils/localstorage";
+import Premises from "../components/pages/Premises.vue";
+import Menu from "../components/pages/Menu.vue";
+import Order from "../components/pages/Order.vue";
+import OrderList from "../components/pages/OrderList.vue";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: Premises,
-    name: 'Home',
+    name: "Home",
     meta: { showNav: true },
   },
   {
-    path: '/premises',
+    path: "/premises",
     component: Premises,
-    name: 'Premises',
+    name: "Premises",
     meta: { showNav: true },
   },
   {
-    path: '/order',
+    path: "/order",
     component: OrderList,
-    name: 'Order',
+    name: "Order",
     meta: { showNav: true },
-    children: [{
-      path: '', component: Order,
-    }],
+    children: [
+      {
+        path: "",
+        component: Order,
+      },
+    ],
   },
   {
-    path: '/menu/:premisesId',
+    path: "/menu/:premisesId",
     component: Menu,
-    name: 'Menu',
+    name: "Menu",
     meta: { showNav: true },
   },
   {
-    path: '/register',
+    path: "/register",
     component: Register,
-    name: 'Register',
+    name: "Register",
     meta: { showNav: false },
   },
   {
-    path: '/login',
+    path: "/login",
     component: Login,
-    name: 'Login',
+    name: "Login",
     meta: { showNav: false },
   },
 ];
@@ -55,7 +58,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!['Login', 'Register'].includes(to.name) && !getItem('access_token')) next({ name: 'Login' });
+  if (!["Login", "Register"].includes(to.name) && !getItem("access_token")) next({ name: "Login" });
   else next();
 });
 

@@ -1,12 +1,12 @@
 <template>
-<button type="button" class="rounded-full px-4 border border-white text-white p-2 rounded  leading-none flex items-center">
-      <slot></slot>
-    </button>
+  <button
+    type="button"
+    class="rounded-full px-4 border border-white text-white p-2 rounded leading-none flex items-center"
+  >
+    <slot></slot>
+  </button>
 </template>
 
-<script>
-</script>
+<script></script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

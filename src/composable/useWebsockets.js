@@ -1,7 +1,5 @@
-import {
-  computed, ref,
-} from 'vue';
-import { useToast } from 'vue-toastification';
+import { computed, ref } from "vue";
+import { useToast } from "vue-toastification";
 
 // eslint-disable-next-line import/prefer-default-export
 export const useWebsockets = (url, options = {}) => {
@@ -26,25 +24,25 @@ export const useWebsockets = (url, options = {}) => {
 
   ws = new WebSocket(url);
 
-  ws.addEventListener('message', (e) => {
-    console.log('Message:', e.data);
+  ws.addEventListener("message", (e) => {
+    console.log("Message:", e.data);
     messages.value.push(JSON.parse(e.data));
   });
 
-  ws.addEventListener('error', (err) => {
+  ws.addEventListener("error", (err) => {
     toast(`Socket encountered error: ', ${err.message}, 'Closing socket`);
     ws.value.close();
   });
 
-  ws.addEventListener('close', (e) => {
-    toast('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+  ws.addEventListener("close", (e) => {
+    toast("Socket is closed. Reconnect will be attempted in 1 second.", e.reason);
     setTimeout(() => {
       connect();
     }, mergedOptions.interval);
   });
 
-  ws.addEventListener('open', () => {
-    toast('Connected!');
+  ws.addEventListener("open", () => {
+    toast("Connected!");
   });
 
   const sendMessage = (message) => {

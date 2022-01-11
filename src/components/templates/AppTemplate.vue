@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'SafeArea.vue',
+  name: "SafeArea.vue",
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
-<div>{{  x }}</div>
+  <div>{{ x }}</div>
 </template>
 
 <script setup>
-const x = '';
+const x = "";
 </script>
