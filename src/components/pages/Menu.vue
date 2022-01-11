@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <CartModal v-if="isVisible" @order:create="handleOrderCreate"></CartModal>
+  <Cart v-if="isVisible" @order:create="handleOrderCreate"></Cart>
   <AppModal @close="orderCallbackModal = false" v-if="orderCallbackModal">
     <div class="flex flex-col my-auto self-center items-center">
       <div class="text-2xl text-gray-900 text-center font-medium mb-5">
@@ -80,14 +80,14 @@ import AppBadge from "@/components/atoms/AppBadge.vue";
 import AppIcon from "@/components/atoms/AppIcon.vue";
 import ProductCard from "@/components/organisms/ProductCard.vue";
 import AppModal from "@/components/organisms/AppModal.vue";
-import CartModal from "@/components/pages/Cart.vue";
+import Cart from "@/components/pages/Cart.vue";
 
 const route = useRoute();
 const id = route.params.premisesId;
 
 const { isVisible, addToCart, toggleCartVisibility, cart } = useCart();
 
-const { lastMessage, sendMessage } = useWebsockets(WS_URL);
+const { lastMessage } = useWebsockets(WS_URL);
 
 watch(lastMessage, (currentValue) => {
   if (currentValue.type === "create.order") {
@@ -96,22 +96,22 @@ watch(lastMessage, (currentValue) => {
 });
 
 const orderCallbackModal = ref(false);
-const order = ref({});
+// const order = ref({});
 
 const handleOrderCreate = () => {
-  const payload = {
-    type: "create.order",
-    data: {
-      status: "REQUESTED",
-      customer: 35,
-      premises: id,
-      order_products: cart.value.map((product) => product.id),
-    },
-  };
-  order.value = payload.data;
-
-  console.log(payload);
-  sendMessage(payload);
+  // const payload = {
+  //   type: "create.order",
+  //   data: {
+  //     status: "REQUESTED",
+  //     customer: 35,
+  //     premises: id,
+  //     order_products: cart.value.map((product) => product.id),
+  //   },
+  // };
+  // order.value = payload.data;
+  //
+  // console.log(payload);
+  // sendMessage(payload);
 };
 
 const handleOrderCreated = () => {

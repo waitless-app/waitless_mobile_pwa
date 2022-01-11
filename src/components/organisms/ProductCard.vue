@@ -6,10 +6,7 @@
         themeOptions[theme].background,
       ]"
     >
-      <div
-        class="flex flex-col rounded-full w-10 h-10 bg-gray-300 justify-center items-center mr-4 bg-cover bg-center"
-        :style="{ 'background-image': `url(${props.image})` }"
-      ></div>
+      <AppAvatar :image="props.image" />
       <div class="flex-1 pl-1 mr-16">
         <div :class="['font-medium text-white', themeOptions[theme].name]">{{ props.name }}</div>
         <div class="" :class="['text-sm', themeOptions[theme].description]">
@@ -25,6 +22,7 @@
 
 <script setup>
 import { defineProps } from "vue";
+import AppAvatar from "@/components/atoms/AppAvatar.vue";
 
 const themeOptions = {
   dark: {
