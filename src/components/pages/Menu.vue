@@ -44,11 +44,9 @@
       <div
         class="right-0 absolute rounded-full w-6 h-5 bg-white inline-block flex justify-center items-center"
       >
-        <span
-          href="#"
-          class="inline-block rounded-full bg-white border-4 border-green-400 p-1 text-xs"
-          >{{ cart.length }}</span
-        >
+        <span class="inline-block rounded-full bg-white border-4 border-green-400 p-1 text-xs">
+          {{ cart.length }}
+        </span>
       </div>
     </div>
   </div>
@@ -72,6 +70,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { computed, ref, watch } from "vue";
+import { useToast } from "vue-toastification";
 import { useCart } from "../../composable/useCart";
 import { useWebsockets } from "../../composable/useWebsockets";
 import { MenuService } from "../../services/api.service";
@@ -87,31 +86,39 @@ const id = route.params.premisesId;
 
 const { isVisible, addToCart, toggleCartVisibility, cart } = useCart();
 
-const { lastMessage } = useWebsockets(WS_URL);
+const { lastMessage, sendMessage } = useWebsockets(WS_URL);
+
+const toast = useToast();
 
 watch(lastMessage, (currentValue) => {
   if (currentValue.type === "create.order") {
     handleOrderCreated(currentValue.data);
   }
+  if (currentValue.type === "order.notification") {
+    handleOrderUpdate(currentValue.data);
+  }
 });
 
 const orderCallbackModal = ref(false);
-// const order = ref({});
+const order = ref({});
 
 const handleOrderCreate = () => {
-  // const payload = {
-  //   type: "create.order",
-  //   data: {
-  //     status: "REQUESTED",
-  //     customer: 35,
-  //     premises: id,
-  //     order_products: cart.value.map(({ product }}) => product.id),
-  //   },
-  // };
-  // order.value = payload.data;
-  //
-  // console.log(payload);
-  // sendMessage(payload);
+  const payload = {
+    type: "create.order",
+    data: {
+      status: "REQUESTED",
+      customer: 35,
+      premises: id,
+      order_products: cart.value.map(({ product }) => product.id),
+    },
+  };
+  order.value = payload.data;
+
+  sendMessage(payload);
+};
+
+const handleOrderUpdate = (updatedOrder) => {
+  toast(`Order ${updatedOrder.id} updated!`);
 };
 
 const handleOrderCreated = () => {

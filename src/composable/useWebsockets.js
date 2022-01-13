@@ -42,7 +42,7 @@ export const useWebsockets = (url, options = {}) => {
   });
 
   ws.addEventListener("open", () => {
-    toast("Connected!");
+    toast.success("Connected!");
   });
 
   const sendMessage = (message) => {
