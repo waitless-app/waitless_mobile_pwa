@@ -1,15 +1,30 @@
 <template>
-  <li class="border-gray-400 flex flex-row mb-2">
+  <li class="border-gray-400 flex flex-col mb-2">
     <div
       :class="[
         'select-none cursor-pointer rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg',
         themeOptions[theme].background,
       ]"
     >
-      <AppAvatar :image="props.image" />
+      <div class="w-14 h-10">
+        <div class="relative">
+          <div class="absolute w-10 h-10 p-1">
+            <div
+              :class="[
+                'rounded-full animate-ping w-full h-full opacity-75',
+                statusColors[props.status]['ping'],
+              ]"
+            ></div>
+          </div>
+          <div
+            class="rounded-full absolute bg-gray-300 justify-center items-center bg-cover bg-center w-10 h-10"
+            :style="{ 'background-image': `url(${props.image})` }"
+          ></div>
+        </div>
+      </div>
       <div class="flex-1 pl-1 mr-16">
         <div :class="['font-medium text-white', themeOptions[theme].name]">{{ props.name }}</div>
-        <div class="" :class="['text-sm font-bold', statusColors[props.status]]">
+        <div class="" :class="['text-sm font-bold', statusColors[props.status]['text']]">
           {{ props.status }}
         </div>
         <div :class="['text-sm mt-2', themeOptions[theme].description]">
@@ -19,7 +34,7 @@
           {{ props.created }}
         </div>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col text-center">
         <slot></slot>
       </div>
     </div>
@@ -28,7 +43,7 @@
 
 <script setup>
 import { defineProps } from "vue";
-import AppAvatar from "@/components/atoms/AppAvatar.vue";
+// import AppAvatar from "@/components/atoms/AppAvatar.vue";
 
 const themeOptions = {
   dark: {
@@ -44,9 +59,18 @@ const themeOptions = {
 };
 
 const statusColors = {
-  ACCEPTED: "text-pink-400",
-  REQUESTED: "text-yellow-400",
-  READY: "text-green-400",
+  ACCEPTED: {
+    text: "text-pink-400",
+    ping: "bg-pink-500",
+  },
+  REQUESTED: {
+    text: "text-yellow-400",
+    ping: "bg-yellow-400",
+  },
+  READY: {
+    text: "text-green-400",
+    ping: "bg-green-400",
+  },
 };
 
 const props = defineProps({

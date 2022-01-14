@@ -16,18 +16,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import OrderCard from "@/components/organisms/OrderCard.vue";
 
 import { WS_URL } from "@/utils/config";
 import { OrderService } from "@/services/order.service";
+import { useWebsockets } from "@/composable/useWebsockets";
+import { mergeArrayWithObject } from "@/utils/utils";
 
-// const { COMPLETED, REQUESTED } = OrderStatuses;
+const { lastMessage } = useWebsockets(WS_URL);
+
+watch(lastMessage, (currentValue) => {
+  if (currentValue.type === "order.notification") {
+    handleOrderUpdate(currentValue.data);
+  }
+});
+
 const { data = [] } = await OrderService.query();
 const orders = ref(data);
-// const completedOrders = computed(() => orders.value.filter((order) => order.status === COMPLETED));
 
-// const requestedOrders = computed(() => orders.value.filter((order) => order.status === REQUESTED));
+const handleOrderUpdate = (order) => {
+  orders.value = mergeArrayWithObject(orders.value, order);
+};
 
 const formatOrderProduct = (orderProduct) => {
   const {
@@ -36,17 +46,4 @@ const formatOrderProduct = (orderProduct) => {
   } = orderProduct;
   return `${quantity}x ${name}, `;
 };
-
-// Create WebSocket connection.
-const socket = new WebSocket(WS_URL);
-
-// Connection opened
-socket.addEventListener("open", () => {
-  console.log("Connection Opened");
-});
-
-// Listen for messages
-socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
-});
 </script>
