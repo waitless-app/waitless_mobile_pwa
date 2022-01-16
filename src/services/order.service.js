@@ -12,4 +12,7 @@ export const OrderService = {
   query() {
     return ApiService.query("order/");
   },
+  get(slug) {
+    return ApiService.get("order", `${slug}`);
+  },
 };

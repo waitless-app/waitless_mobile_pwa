@@ -17,6 +17,7 @@ export const useWebsockets = (url, options = {}) => {
   const lastMessage = computed(() => messages.value[messages.value.length - 1]);
 
   const connect = () => {
+    console.log("Connect!");
     if (ws && ws.readyState === 3) {
       ws = new WebSocket(url);
     }
@@ -42,7 +43,7 @@ export const useWebsockets = (url, options = {}) => {
   });
 
   ws.addEventListener("open", () => {
-    toast.success("Connected!");
+    // Log ws opened
   });
 
   const sendMessage = (message) => {

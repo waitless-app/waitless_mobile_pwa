@@ -25,12 +25,18 @@ const routes = [
     component: OrderList,
     name: "Order",
     meta: { showNav: true },
-    children: [
-      {
-        path: "",
-        component: Order,
-      },
-    ],
+  },
+  {
+    path: "/order",
+    component: OrderList,
+    name: "Order",
+    meta: { showNav: true },
+  },
+  {
+    path: "/order/:orderId",
+    component: Order,
+    name: "OrderDetail",
+    meta: { showNav: true },
   },
   {
     path: "/menu/:premisesId",

@@ -10,6 +10,7 @@
         <div class="relative">
           <div class="absolute w-10 h-10 p-1">
             <div
+              v-if="props.status !== 'COMPLETED'"
               :class="[
                 'rounded-full animate-ping w-full h-full opacity-75',
                 statusColors[props.status]['ping'],
@@ -70,6 +71,10 @@ const statusColors = {
   READY: {
     text: "text-green-400",
     ping: "bg-green-400",
+  },
+  COMPLETED: {
+    text: "text-gray-200",
+    ping: "bg-gray-200",
   },
 };
 
