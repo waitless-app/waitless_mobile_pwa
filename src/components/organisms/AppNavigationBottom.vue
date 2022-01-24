@@ -56,7 +56,7 @@ export default {
       {
         view: "Profile",
         icon: "user",
-        routeName: "Home",
+        routeName: "Profile",
       },
     ];
     return { menu, routeName: name, pushRoute };
