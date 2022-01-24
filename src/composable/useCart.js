@@ -1,5 +1,6 @@
 import { computed, ref } from "vue";
 
+// It is not consider as a good practice
 const isVisible = ref(false);
 const cart = ref([]);
 

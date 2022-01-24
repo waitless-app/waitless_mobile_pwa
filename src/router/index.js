@@ -6,6 +6,7 @@ import Premises from "../components/pages/Premises.vue";
 import Menu from "../components/pages/Menu.vue";
 import Order from "../components/pages/Order.vue";
 import OrderList from "../components/pages/OrderList.vue";
+import Profile from "@/components/pages/Profile.vue";
 
 const routes = [
   {
@@ -42,6 +43,12 @@ const routes = [
     path: "/menu/:premisesId",
     component: Menu,
     name: "Menu",
+    meta: { showNav: true },
+  },
+  {
+    path: "/profile",
+    component: Profile,
+    name: "Profile",
     meta: { showNav: true },
   },
   {

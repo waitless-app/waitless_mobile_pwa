@@ -29,15 +29,6 @@
 <script setup>
 import { defineProps } from "vue";
 
-// const themeOptions = {
-//   dark: {
-//     background: '',
-//   },
-//   light: {
-//
-//   },
-// };
-
 const props = defineProps({
   title: {
     type: String,
