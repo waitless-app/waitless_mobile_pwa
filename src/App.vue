@@ -7,11 +7,13 @@
   <AppTemplate v-else>
     <SafeArea>
       <router-view v-slot="{ Component }">
-        <suspense>
+        <suspense timeout="0">
           <template #default>
             <component :is="Component"></component>
           </template>
-          <template #fallback> loadin... </template>
+          <template #fallback>
+            <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
+          </template>
         </suspense>
       </router-view>
     </SafeArea>

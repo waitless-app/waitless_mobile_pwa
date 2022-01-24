@@ -44,7 +44,7 @@
 
 <script setup>
 import { defineProps } from "vue";
-// import AppAvatar from "@/components/atoms/AppAvatar.vue";
+import { statusColors } from "@/utils/constants";
 
 const themeOptions = {
   dark: {
@@ -56,25 +56,6 @@ const themeOptions = {
     background: "bg-green-400",
     name: "text-gray-900",
     description: "text-gray-900 ",
-  },
-};
-
-const statusColors = {
-  ACCEPTED: {
-    text: "text-pink-400",
-    ping: "bg-pink-500",
-  },
-  REQUESTED: {
-    text: "text-yellow-400",
-    ping: "bg-yellow-400",
-  },
-  READY: {
-    text: "text-green-400",
-    ping: "bg-green-400",
-  },
-  COMPLETED: {
-    text: "text-gray-200",
-    ping: "bg-gray-200",
   },
 };
 
