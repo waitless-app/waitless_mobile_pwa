@@ -15,6 +15,10 @@
           <div class="md:flex md:items-end">
             <AppButton @click="handleLogin"> Sign In </AppButton>
           </div>
+          <div class="text-white text-sm mt-6">
+            Don't have an account?
+            <router-link to="register" class="text-pink-500 font-bold ml-2">Sign Up</router-link>
+          </div>
         </form>
       </div>
     </div>
