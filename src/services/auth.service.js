@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { API_URL } from '../utils/config';
+import axios from "axios";
+import { API_URL } from "../utils/config";
 
 const AuthService = {
   login(params) {

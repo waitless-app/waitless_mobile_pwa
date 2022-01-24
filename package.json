@@ -17,6 +17,7 @@
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
+    "vue-toastification": "^2.0.0-rc.5",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
@@ -52,6 +53,7 @@
   "lint-staged": {
     "*.{js,jsx,vue}": [
       "vue-cli-service lint",
+      "prettier . --write",
       "git add"
     ]
   },

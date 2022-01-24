@@ -1,27 +1,45 @@
-import { computed, ref } from 'vue';
+import { computed, ref } from "vue";
 
 const isVisible = ref(false);
 const cart = ref([]);
 
 export function useCart() {
   const toggleCartVisibility = () => {
-    console.log('click');
     isVisible.value = !isVisible.value;
   };
 
+  const inCartProductIndex = (productId) =>
+    cart.value.findIndex(({ product }) => product.id === productId);
+
   const addToCart = (product) => {
-    cart.value.push(product);
-    console.log(cart.value);
+    const cartProduct = {
+      product,
+      quantity: 1,
+    };
+
+    const productIndex = inCartProductIndex(product.id);
+
+    if (productIndex === -1) {
+      cart.value.push(cartProduct);
+    } else {
+      cart.value[productIndex].quantity += 1;
+    }
   };
 
   const totalPrice = computed(() => {
-    const price = 0;
-    cart.value.forEach((product) => { totalPrice.value += product.price; });
+    let price = 0.0;
+    cart.value.forEach(({ product, quantity }) => {
+      price += Number(product.price * quantity);
+    });
     return price;
   });
 
   return {
-    isVisible, cart, toggleCartVisibility, addToCart, totalPrice,
+    isVisible,
+    cart,
+    toggleCartVisibility,
+    addToCart,
+    totalPrice,
   };
 }
 
