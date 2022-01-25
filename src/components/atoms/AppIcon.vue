@@ -39,5 +39,8 @@ const availableIcons = {
     "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z",
   close: "M6 18L18 6M6 6l12 12",
   arrowRight: "M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z",
+  chevronRight: "M9 5l7 7-7 7",
+  chevronUp: "M5 15l7-7 7 7",
+  chevronDown: "M19 9l-7 7-7-7",
 };
 </script>

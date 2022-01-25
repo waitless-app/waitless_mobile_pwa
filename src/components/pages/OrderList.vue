@@ -14,8 +14,14 @@
       </OrderCard>
     </template>
   </ul>
-  <div class="text-white text-xl my-4">Completed Orders</div>
-  <ul class="flex flex-col mt-4">
+  <div
+    class="text-white text-xl my-4 cursor-pointer"
+    @click="showCompletedOrders = !showCompletedOrders"
+    @keyup="showCompletedOrders = !showCompletedOrders"
+  >
+    Completed Orders <AppIcon :icon="showCompletedOrders ? 'chevronUp' : 'chevronDown'" />
+  </div>
+  <ul class="flex flex-col mt-4" v-show="showCompletedOrders">
     <template v-for="order in completedOrders" :key="order.name">
       <OrderCard
         :image="order.premises.image"
@@ -40,6 +46,7 @@ import { WS_URL } from "@/utils/config";
 import { OrderService } from "@/services/order.service";
 import { useWebsockets } from "@/composable/useWebsockets";
 import { mergeArrayWithObject } from "@/utils/utils";
+import AppIcon from "@/components/atoms/AppIcon.vue";
 
 const { lastMessage } = useWebsockets(WS_URL);
 
@@ -48,6 +55,8 @@ watch(lastMessage, (currentValue) => {
     handleOrderUpdate(currentValue.data);
   }
 });
+
+const showCompletedOrders = ref(false);
 
 const router = useRouter();
 
