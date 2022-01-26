@@ -35,7 +35,9 @@
     <div class="text-gray-200 text-sm">{{ order.order_comment || "No Comment" }}</div>
     <div class="text-white mt-4">Order products:</div>
     <template v-for="orderProduct in order.order_products" :key="orderProduct.name">
-      <div class="text-gray-200 text-sm">{{ orderProduct.product.name }}</div>
+      <div class="text-gray-200 text-sm">
+        {{ orderProduct.product.name }} <span class="ml-2">x{{ orderProduct.quantity }}</span>
+      </div>
     </template>
     <div class="text-white mt-4">Creation Time</div>
     <div class="text-gray-200 text-sm">{{ order.created }}</div>

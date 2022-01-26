@@ -10,7 +10,7 @@
         :created="order.created.slice(0, 16)"
         @click="openOrderDetails(order.id)"
       >
-        <div class="text-white text-2xl">40 PLN</div>
+        <div class="text-white text-2xl">{{ order.total_cost }} PLN</div>
       </OrderCard>
     </template>
   </ul>
@@ -31,7 +31,7 @@
         :created="order.created.slice(0, 16)"
         @click="openOrderDetails(order.id)"
       >
-        <div class="text-white text-2xl">40 PLN</div>
+        <div class="text-white text-2xl">{{ order.total_cost }} PLN</div>
       </OrderCard>
     </template>
   </ul>

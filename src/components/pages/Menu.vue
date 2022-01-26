@@ -58,7 +58,13 @@
         we are waiting for confirmation.
       </div>
       <div class="relative">
-        <div class="w-32 h-32 bg-white rounded-full shadow-2xl"></div>
+        <div
+          class="w-32 h-32 bg-white rounded-full shadow-2xl bg-cover"
+          :style="{
+            'background-image': `url(${menu.premises.image})`,
+            filter: 'drop-shadow(2px 2px 6px #0A0A0A)',
+          }"
+        ></div>
         <div
           class="absolute top-3 right-3 -mr-1 -mt-1 w-4 h-4 rounded-full bg-pink-500 animate-ping"
         ></div>
@@ -109,13 +115,16 @@ const handleOrderCreate = () => {
       status: "REQUESTED",
       customer: 35,
       premises: id,
-      order_products: cart.value.map(({ product }) => product.id),
+      order_products: mapOrderProducts(cart.value),
     },
   };
   order.value = payload.data;
-
+  console.log(payload);
   sendMessage(payload);
 };
+
+const mapOrderProducts = (orderProducts) =>
+  orderProducts.map(({ quantity, product }) => ({ product: product.id, quantity }));
 
 const handleOrderUpdate = (updatedOrder) => {
   toast(`Order ${updatedOrder.id} updated!`);

@@ -1,10 +1,10 @@
 <template>
   <AppModal title="Cart" @close="toggleCartVisibility">
     <div class="flex flex-col mt-5">
-      <template v-for="{ product, quantity } in cart" :key="product.name">
-        <ProductCard :name="product.name" :image="product.image" theme="light"
-          >Quantity: {{ quantity }}</ProductCard
-        >
+      <template v-for="cartItem in cart" :key="cartItem.product.name">
+        <ProductCard :name="cartItem.product.name" :image="cartItem.product.image" theme="light"
+          ><AppInputCounter v-model="cartItem.quantity" :min="0"></AppInputCounter
+        ></ProductCard>
       </template>
       <template v-if="!cart.length">
         <AppNotification title="Your cart is empty" />
@@ -34,6 +34,7 @@ import AppInput from "@/components/atoms/AppInput.vue";
 import AppButton from "@/components/atoms/AppButton.vue";
 import ProductCard from "@/components/organisms/ProductCard.vue";
 import AppNotification from "@/components/organisms/AppNotification.vue";
+import AppInputCounter from "@/components/molecules/AppInputCounter.vue";
 
 const { cart, toggleCartVisibility, totalPrice } = useCart();
 
