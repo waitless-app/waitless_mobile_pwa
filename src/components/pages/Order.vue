@@ -6,8 +6,14 @@
         class="select-none cursor-pointer rounded-md flex flex-1 justify-between p-4 bg-gray-800 h-36"
       >
         <div>
-          <div class="text-white">{{ order.premises.name }}</div>
-          <div class="text-gray-500 text-sm">Order #{{ order.id.slice(0, 4) }}</div>
+          <div>
+            <div class="text-white text-xl">{{ order.premises.name }}</div>
+            <div class="text-gray-500 text-sm">Order #{{ order.id.slice(0, 4) }}</div>
+          </div>
+          <div>
+            <div class="text-white mt-8 text-sm">Last Update</div>
+            <div class="text-gray-200 text-sm">{{ completedIn(order.updated) }}</div>
+          </div>
         </div>
         <div class="text-right text-white text-xs mt-1">
           <div>Status</div>
@@ -40,7 +46,7 @@
       </div>
     </template>
     <div class="text-white mt-4">Creation Time</div>
-    <div class="text-gray-200 text-sm">{{ order.created }}</div>
+    <div class="text-gray-200 text-sm">{{ parseDate(order.created) }}</div>
     <div class="text-white mt-4">Full ID</div>
     <div class="text-gray-200 text-sm">{{ order.id }}</div>
   </div>
@@ -49,10 +55,15 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { OrderService } from "@/services/order.service";
 import { useWebsockets } from "@/composable/useWebsockets";
 import { WS_URL } from "@/utils/config";
 import { statusColors } from "@/utils/constants";
+import { parseDate } from "@/utils/utils";
+
+dayjs.extend(relativeTime);
 
 const route = useRoute();
 const id = route.params.orderId;
@@ -62,6 +73,11 @@ const { data = {} } = await OrderService.get(id);
 const order = ref(data);
 
 const { lastMessage } = useWebsockets(WS_URL);
+
+const completedIn = (isoDate) => {
+  const date = dayjs(isoDate).fromNow();
+  return date;
+};
 
 watch(lastMessage, (currentValue) => {
   if (currentValue.type === "order.notification") {

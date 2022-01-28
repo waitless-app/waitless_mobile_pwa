@@ -15,7 +15,7 @@
     </template>
   </ul>
   <div
-    class="text-white text-xl my-4 cursor-pointer"
+    class="text-white text-xl mt-4 mb-16 cursor-pointer"
     @click="showCompletedOrders = !showCompletedOrders"
     @keyup="showCompletedOrders = !showCompletedOrders"
   >

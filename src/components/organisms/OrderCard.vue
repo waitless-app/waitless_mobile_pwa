@@ -32,7 +32,7 @@
           {{ props.description }}
         </div>
         <div class="text-sm text-gray-500">
-          {{ props.created }}
+          {{ parseDate(props.created) }}
         </div>
       </div>
       <div class="flex flex-col text-center">
@@ -45,6 +45,7 @@
 <script setup>
 import { defineProps } from "vue";
 import { statusColors } from "@/utils/constants";
+import { parseDate } from "@/utils/utils";
 
 const themeOptions = {
   dark: {
@@ -82,7 +83,7 @@ const props = defineProps({
     default: "Not Available",
   },
   created: {
-    type: Date,
+    type: String,
     default: "-",
   },
 });
