@@ -1,11 +1,9 @@
 <template>
   <div class="flex flex-col mt-10">
-    <div class="text-white text-4xl font-bold">Gdynia</div>
+    <div class="text-white text-4xl font-bold">All Premises</div>
     <div class="flex justify-start text-white font-bold my-4">
-      <div class="mx-2">All</div>
-      <div class="mx-2 text-gray-200">Fast</div>
-      <div class="mx-2 text-gray-200">Drinks</div>
-      <div class="mx-2 text-gray-200">American</div>
+      <div class="mx-2">Opened</div>
+      <div class="mx-2 text-gray-200">Closed</div>
     </div>
     <div class="grid grid-cols-2 gap-4">
       <template v-for="item in premises" :key="item.name">
