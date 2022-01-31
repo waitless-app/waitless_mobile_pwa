@@ -103,6 +103,9 @@ watch(lastMessage, (currentValue) => {
   if (currentValue.type === "order.notification") {
     handleOrderUpdate(currentValue.data);
   }
+  if (currentValue.type === "order.error") {
+    handleOrderError(currentValue.data);
+  }
 });
 
 const orderCallbackModal = ref(false);
@@ -134,6 +137,9 @@ const handleOrderCreated = () => {
   // Reset cart
   isVisible.value = false;
   orderCallbackModal.value = true;
+};
+const handleOrderError = (error) => {
+  toast.warning(error);
 };
 
 const handleProductClick = (product) => {
