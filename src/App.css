@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

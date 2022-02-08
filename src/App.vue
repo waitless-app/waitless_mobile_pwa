@@ -1,30 +1,42 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="justify-center flex bg-yellow-300 items-center h-screen" v-if="isMobile">
+    <div class="text-4xl">
+      This app is only available on mobile devices <span role="img" aria-label="hand">👋🏼</span>
+    </div>
   </div>
-  <router-view/>
+  <AppTemplate v-else>
+    <SafeArea>
+      <router-view v-slot="{ Component }">
+        <suspense timeout="0">
+          <template #default>
+            <component :is="Component"></component>
+          </template>
+          <template #fallback>
+            <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
+          </template>
+        </suspense>
+      </router-view>
+    </SafeArea>
+    <AppNavBottom v-if="meta?.showNav" />
+  </AppTemplate>
 </template>
+<script setup>
+import { onMounted, ref, toRefs } from "vue";
+import { useRoute } from "vue-router";
+import AppNavBottom from "./components/organisms/AppNavigationBottom.vue";
+import SafeArea from "./components/templates/SafeArea.vue";
+import AppTemplate from "./components/templates/AppTemplate.vue";
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+const isMobile = ref(false);
 
-#nav {
-  padding: 30px;
+const router = useRoute();
+const { meta } = toRefs(router);
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+const handleResize = (e) => {
+  isMobile.value = e.target.innerWidth >= 480;
+};
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+});
+</script>
