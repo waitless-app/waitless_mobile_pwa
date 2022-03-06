@@ -1,9 +1,12 @@
 import { computed, ref } from "vue";
 import { useToast } from "vue-toastification";
+import { getItem } from "@/utils/localstorage";
 
 // eslint-disable-next-line import/prefer-default-export
 export const useWebsockets = (url, options = {}) => {
   const toast = useToast();
+
+  const wsURL = `${url}?token=${getItem("access_token")}`;
 
   const defaultOptions = {
     interval: 1000,
@@ -32,7 +35,7 @@ export const useWebsockets = (url, options = {}) => {
 
   const createWebSocketInstance = () => {
     checkRetries(() => {
-      ws = new WebSocket(url);
+      ws = new WebSocket(wsURL);
     });
   };
 
@@ -54,7 +57,7 @@ export const useWebsockets = (url, options = {}) => {
     }
   };
 
-  ws = new WebSocket(url);
+  ws = new WebSocket(wsURL);
 
   ws.addEventListener("message", (e) => {
     console.log("Message:", e.data);
