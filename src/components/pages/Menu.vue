@@ -15,7 +15,7 @@
         <AppIcon icon="locationMarker" class="pb-1" /> {{ premisesAddress }}
       </div>
     </div>
-    <div class="bg-black mt-4 -mx-5 p-5 rounded-t-lg grow">
+    <div class="bg-black mt-4 -mx-5 p-5 rounded-t-lg h-96">
       <div class="flex justify-start text-white font-bold">
         <div>All Products</div>
       </div>
