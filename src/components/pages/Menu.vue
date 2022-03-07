@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mt-10 relative">
+  <div class="flex flex-col mt-10 relative min-h-screen">
     <div class="bg-gray-800 rounded-lg p-4">
       <div
         class="bg-gray-600 h-40 rounded-lg bg-cover bg-center"
@@ -15,7 +15,7 @@
         <AppIcon icon="locationMarker" class="pb-1" /> {{ premisesAddress }}
       </div>
     </div>
-    <div class="bg-black mt-4 -mx-5 p-5 rounded-t-lg h-96">
+    <div class="bg-black mt-4 -mx-5 p-5 rounded-t-lg flex-grow">
       <div class="flex justify-start text-white font-bold">
         <div>All Products</div>
       </div>
@@ -50,28 +50,12 @@
       </div>
     </div>
   </div>
-  <Cart v-if="isVisible" @order:create="handleOrderCreate"></Cart>
-  <AppModal @close="orderCallbackModal = false" v-if="orderCallbackModal">
-    <div class="flex flex-col my-auto self-center items-center">
-      <div class="text-2xl text-gray-900 text-center font-medium mb-5">
-        Order is requested,<br />
-        we are waiting for confirmation.
-      </div>
-      <div class="relative">
-        <div
-          class="w-32 h-32 bg-white rounded-full shadow-2xl bg-cover"
-          :style="{
-            'background-image': `url(${menu.premises.image})`,
-            filter: 'drop-shadow(2px 2px 6px #0A0A0A)',
-          }"
-        ></div>
-        <div
-          class="absolute top-3 right-3 -mr-1 -mt-1 w-4 h-4 rounded-full bg-pink-500 animate-ping"
-        ></div>
-        <div class="absolute top-3 right-3 -mr-1 -mt-1 w-4 h-4 rounded-full bg-pink-500"></div>
-      </div>
-    </div>
-  </AppModal>
+  <Cart v-if="isVisible" @order:create="handleOrderCreate" />
+  <MenuOrderConfirmation
+    :show="showOrderConfirmation"
+    @close="showOrderConfirmation = false"
+    :image="menu.premises.image"
+  />
 </template>
 <script setup>
 import { useRoute } from "vue-router";
@@ -84,13 +68,13 @@ import { WS_URL } from "../../utils/config";
 import AppBadge from "@/components/atoms/AppBadge.vue";
 import AppIcon from "@/components/atoms/AppIcon.vue";
 import ProductCard from "@/components/organisms/ProductCard.vue";
-import AppModal from "@/components/organisms/AppModal.vue";
-import Cart from "@/components/pages/Cart.vue";
+import Cart from "@/components/organisms/MenuCart.vue";
+import MenuOrderConfirmation from "@/components/organisms/MenuOrderConfirmation.vue";
 
 const route = useRoute();
 const id = route.params.premisesId;
 
-const { isVisible, addToCart, toggleCartVisibility, cart } = useCart();
+const { isVisible, addToCart, toggleCartVisibility, cart, clearCart } = useCart();
 
 const { lastMessage, sendMessage } = useWebsockets(WS_URL);
 
@@ -108,7 +92,7 @@ watch(lastMessage, (currentValue) => {
   }
 });
 
-const orderCallbackModal = ref(false);
+const showOrderConfirmation = ref(false);
 const order = ref({});
 
 const handleOrderCreate = () => {
@@ -136,7 +120,8 @@ const handleOrderUpdate = (updatedOrder) => {
 const handleOrderCreated = () => {
   // Reset cart
   isVisible.value = false;
-  orderCallbackModal.value = true;
+  showOrderConfirmation.value = true;
+  clearCart();
 };
 const handleOrderError = (error) => {
   toast.warning(error);

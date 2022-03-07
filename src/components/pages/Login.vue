@@ -28,6 +28,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 import { setItem } from "@/utils/localstorage";
 import AppInput from "@/components/atoms/AppInput.vue";
 import AppButton from "@/components/atoms/AppButton.vue";
@@ -39,7 +40,7 @@ const saveToken = (access = null, refresh = null) => {
   setItem("access_token", access);
   setItem("refresh_token", refresh);
 };
-
+const toast = useToast();
 const router = useRouter();
 
 const handleLogin = () => {
@@ -48,7 +49,7 @@ const handleLogin = () => {
       saveToken(data.access, data.refresh);
       router.push("premises");
     })
-    .catch(() => console.log("Error"));
+    .catch((error) => toast.error(error.response.data.detail));
 };
 </script>
 

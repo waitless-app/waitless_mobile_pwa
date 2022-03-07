@@ -28,7 +28,7 @@
 <script setup>
 import { defineEmits } from "vue";
 import { useCart } from "@/composable/useCart";
-import AppModal from "@/components/organisms/AppModal.vue";
+import AppModal from "@/components/molecules/AppModal.vue";
 import AppIcon from "@/components/atoms/AppIcon.vue";
 import AppInput from "@/components/atoms/AppInput.vue";
 import AppButton from "@/components/atoms/AppButton.vue";

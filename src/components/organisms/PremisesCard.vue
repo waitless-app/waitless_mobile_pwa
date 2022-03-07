@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-green-400 w-100 rounded-md flex-col shadow-md">
+  <div class="bg-green-400 w-100 rounded-md flex-col shadow-md max-w-sm">
     <div class="max-w-sm">
       <div
-        class="w-100 h-36 content-image"
+        class="w-100 h-36 content-image rounded-t-md"
         :style="{ backgroundImage: bg, filter: props.premises.active ? '' : 'grayscale(1)' }"
       />
       <div class="p-3 bg-green-400 rounded-b-md">

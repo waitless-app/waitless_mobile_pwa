@@ -27,6 +27,10 @@ export function useCart() {
     }
   };
 
+  const clearCart = () => {
+    cart.value = [];
+  };
+
   const totalPrice = computed(() => {
     let price = 0.0;
     cart.value.forEach(({ product, quantity }) => {
@@ -41,6 +45,7 @@ export function useCart() {
     toggleCartVisibility,
     addToCart,
     totalPrice,
+    clearCart,
   };
 }
 
