@@ -13,6 +13,11 @@
         <div class="text-white text-2xl">{{ order.total_cost }} PLN</div>
       </OrderCard>
     </template>
+    <template v-if="!liveOrders.length">
+      <div class="text-white font-bold text-md ml-2">
+        There are no active orders. <span role="img" aria-label="think">😕</span>
+      </div>
+    </template>
   </ul>
   <div
     class="text-white text-xl mt-4 mb-16 cursor-pointer"
@@ -33,6 +38,11 @@
       >
         <div class="text-white text-2xl">{{ order.total_cost }} PLN</div>
       </OrderCard>
+    </template>
+    <template v-if="!completedOrders.length">
+      <div class="text-white font-bold text-md ml-2">
+        You don't have completeted orders. <span role="img" aria-label="think">😕</span>
+      </div>
     </template>
   </ul>
 </template>
