@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, defineEmits, onMounted } from "vue";
+import { computed, defineProps, defineEmits } from "vue";
 
 const props = defineProps({
   modelValue: {
@@ -46,15 +46,6 @@ const localValue = computed({
 });
 
 const computedClass = computed(() => (localValue.value !== "" ? "filled" : ""));
-
-onMounted(() => {
-  const labels = document.querySelectorAll(".label");
-  for (let i = 0; i < labels.length; i += 1) {
-    labels[i].addEventListener("click", function () {
-      this.previousElementSibling.focus();
-    });
-  }
-});
 </script>
 
 <style scoped>
