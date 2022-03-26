@@ -5,6 +5,7 @@
       v-model="localValue"
       type="text"
       v-bind="$attrs"
+      :class="computedClass"
       class="input border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600"
       :id="id"
     />
@@ -44,32 +45,15 @@ const localValue = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-onMounted(() => {
-  const toggleInputContainer = function (input) {
-    if (input.value !== "") {
-      input.classList.add("filled");
-    } else {
-      input.classList.remove("filled");
-    }
-  };
+const computedClass = computed(() => (localValue.value !== "" ? "filled" : ""));
 
+onMounted(() => {
   const labels = document.querySelectorAll(".label");
   for (let i = 0; i < labels.length; i += 1) {
     labels[i].addEventListener("click", function () {
       this.previousElementSibling.focus();
     });
   }
-
-  window.addEventListener("load", () => {
-    const inputs = document.getElementsByClassName("input");
-    for (let i = 0; i < inputs.length; i += 1) {
-      console.log("looped");
-      inputs[i].addEventListener("keyup", function () {
-        toggleInputContainer(this);
-      });
-      toggleInputContainer(inputs[i]);
-    }
-  });
 });
 </script>
 

@@ -21,7 +21,6 @@ export const useWebsockets = (url, options = {}) => {
   const lastMessage = computed(() => messages.value[messages.value.length - 1]);
 
   const connect = () => {
-    console.log("Connect!");
     const CLOSING_STATE = 2;
     const CLOSED_STATE = 3;
     const isInstanceCreated = !!ws;
@@ -40,7 +39,6 @@ export const useWebsockets = (url, options = {}) => {
   };
 
   const checkRetries = (func) => {
-    console.log(retries, mergedOptions.retry);
     if (!retries || retries > mergedOptions.retry) {
       func.call();
       incrementRetries();
@@ -60,7 +58,6 @@ export const useWebsockets = (url, options = {}) => {
   ws = new WebSocket(wsURL);
 
   ws.addEventListener("message", (e) => {
-    console.log("Message:", e.data);
     messages.value.push(JSON.parse(e.data));
   });
 
@@ -73,7 +70,6 @@ export const useWebsockets = (url, options = {}) => {
   ws.addEventListener("close", (e) => {
     toast("Socket is closed. Reconnect will be attempted in 1 second.", e.reason);
     connect();
-    console.log("Closed");
   });
 
   ws.addEventListener("open", () => {

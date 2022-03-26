@@ -106,7 +106,6 @@ const handleOrderCreate = () => {
     },
   };
   order.value = payload.data;
-  console.log(payload);
   sendMessage(payload);
 };
 
