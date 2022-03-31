@@ -48,6 +48,7 @@ export const useWebsockets = (url, options = {}) => {
   };
 
   const incrementRetries = () => {
+    // Debounce here required;
     if (retries) {
       retries += 1;
     } else {
@@ -70,10 +71,6 @@ export const useWebsockets = (url, options = {}) => {
   ws.addEventListener("close", (e) => {
     toast("Socket is closed. Reconnect will be attempted in 1 second.", e.reason);
     connect();
-  });
-
-  ws.addEventListener("open", () => {
-    // Log ws opened
   });
 
   const sendMessage = (message) => {

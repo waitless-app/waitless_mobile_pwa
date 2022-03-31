@@ -42,7 +42,6 @@ import AuthService from "@/services/auth.service";
 const form = ref({ email: "", password: "", name: "" });
 
 const router = useRouter();
-
 const toast = useToast();
 
 const handleRegister = () => {
@@ -53,8 +52,8 @@ const handleRegister = () => {
     toast("All fields are required");
   }
 };
+
 const validate = () => {
-  // TODO use vuelidate
   const { email, password, name } = form.value;
   if (!email || !password || !name) {
     return false;

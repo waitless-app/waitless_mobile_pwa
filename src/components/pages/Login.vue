@@ -52,5 +52,3 @@ const handleLogin = () => {
     .catch((error) => toast.error(error.response.data.detail));
 };
 </script>
-
-<style scoped></style>
