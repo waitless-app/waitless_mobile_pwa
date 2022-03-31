@@ -59,22 +59,11 @@ import { mergeArrayWithObject } from "@/utils/utils";
 import AppIcon from "@/components/atoms/AppIcon.vue";
 
 const { lastMessage } = useWebsockets(WS_URL);
-
-watch(lastMessage, (currentValue) => {
-  if (currentValue.type === "order.notification") {
-    handleOrderUpdate(currentValue.data);
-  }
-});
-
+const router = useRouter();
 const showCompletedOrders = ref(false);
 
-const router = useRouter();
-
-const openOrderDetails = (orderId) => {
-  router.push({ name: "OrderDetail", params: { orderId } });
-};
-
 const { data = [] } = await OrderService.query();
+
 const orders = ref(data);
 
 const completedOrders = computed(() =>
@@ -96,4 +85,14 @@ const formatOrderProduct = (orderProduct) => {
   } = orderProduct;
   return `${quantity}x ${name}, `;
 };
+
+const openOrderDetails = (orderId) => {
+  router.push({ name: "OrderDetail", params: { orderId } });
+};
+
+watch(lastMessage, (currentValue) => {
+  if (currentValue.type === "order.notification") {
+    handleOrderUpdate(currentValue.data);
+  }
+});
 </script>

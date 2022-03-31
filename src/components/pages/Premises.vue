@@ -35,9 +35,6 @@ import { useRouter } from "vue-router";
 import PremisesCard from "../organisms/PremisesCard.vue";
 import { PremisesService } from "../../services/api.service";
 
-const { data = [] } = await PremisesService.query();
-const premises = ref(data);
-
 const categories = [
   {
     key: "Opened",
@@ -48,14 +45,17 @@ const categories = [
     value: "closed",
   },
 ];
+
+const { data = [] } = await PremisesService.query();
+const premises = ref(data);
+const router = useRouter();
+
 const category = ref("open");
 
 const premisesByCategory = computed(() => ({
   closed: premises.value.filter((p) => !p.active),
   open: premises.value.filter((p) => p.active),
 }));
-
-const router = useRouter();
 
 const openMenu = (premisesId) => {
   router.push({ name: "Menu", params: { premisesId } });

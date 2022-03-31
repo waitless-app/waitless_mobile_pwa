@@ -106,7 +106,6 @@ const handleOrderCreate = () => {
     },
   };
   order.value = payload.data;
-  console.log(payload);
   sendMessage(payload);
 };
 
@@ -138,5 +137,3 @@ const premisesAddress = computed(() => {
   return `${premises.country}, ${premises.city}, ${premises.address}`;
 });
 </script>
-
-<style scoped></style>

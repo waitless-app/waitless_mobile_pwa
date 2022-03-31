@@ -2,7 +2,7 @@
   <li class="border-gray-400 flex flex-row mb-2">
     <div
       :class="[
-        'select-none cursor-pointer rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg',
+        'select-none cursor-pointer rounded-md flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg',
         themeOptions[theme].background,
       ]"
     >
@@ -57,5 +57,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<style scoped></style>

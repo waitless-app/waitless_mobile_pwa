@@ -4,8 +4,4 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "SafeArea.vue",
-};
-</script>
+<script setup></script>
